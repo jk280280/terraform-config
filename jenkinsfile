@@ -1,11 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('2d4bb0e3165672956155143594bacfc52c597322')
-    }
-
-    stages {
+stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/jk280280/terraform-config.git'
