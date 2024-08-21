@@ -1,13 +1,7 @@
 pipeline {
     agent any
 
-stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/jk280280/terraform-config.git'
-            }
-        }
-        stage('Terraform Apply') {
+        stages('Terraform Apply') {
             steps {
                 script {
                     sh 'terraform init'
