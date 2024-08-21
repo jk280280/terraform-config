@@ -1,6 +1,5 @@
 provider "google" {
- credentials = "GOOGLE_APPLICATION_CREDENTIALS"
- project     = "tf-gcp-connection"
+  project     = "tf-gcp-connection"
   region      = "us-central1"
 }
 
