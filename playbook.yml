@@ -1,0 +1,23 @@
+- name: Configure web server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Pull Docker image
+      docker_image:
+        name: gcr.io/tf-gcp-connection/my-app
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: my_app_container
+        image: gcr.io/tf-gcp-connection/my-app
+        state: started
+        ports:
+          - "80:80"
+
