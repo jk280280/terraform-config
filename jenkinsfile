@@ -1,15 +1,14 @@
 pipeline {
     agent any
-
-        stages('Terraform Apply') {
+       stages{
+        stage('Terraform Apply') {
             steps {
                 script {
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
                 }
-            }
         }
-        
+        }
         stage('Build Docker Image') {
             steps {
                 script {
@@ -34,5 +33,6 @@ pipeline {
         failure {
             echo 'Deployment failed'
         }
-    }
+     }
+  }
 }
