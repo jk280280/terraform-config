@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('2d4bb0e3165672956155143594bacfc52c597322')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/jk280280/terraform-config.git'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t gcr.io/tf-gcp-connect/my-app:latest .'
+                    sh 'docker push gcr.io/tf-gcp-connect/my-app:latest'
+                }
+            }
+        }
+        stage('Ansible Provision') {
+            steps {
+                script {
+                    sh 'ansible-playbook -i inventory playbook.yml'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment completed successfully'
+        }
+        failure {
+            echo 'Deployment failed'
+        }
+    }
+}
