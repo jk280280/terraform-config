@@ -2,11 +2,13 @@ pipeline {
     agent any
        
        stages{
-            steps('GCP Cred'){
+        steps{
+            stage('GCP Cred'){
                  withCredentials([file(credentialsId: 'gcp-key', variable: 'GC_KEY')]) {
             sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
             sh("gcloud container clusters get-credentials prod --zone us-central1-a	 --project tf-gcp-connection")
-  }
+               }
+        }
 }
         stage('Terraform Apply') {
             steps {
