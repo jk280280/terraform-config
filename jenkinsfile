@@ -5,7 +5,7 @@ pipeline {
          stage('GCP Cred'){
             steps{
                  withCredentials([file(credentialsId: 'gcp-key', variable: 'GC_KEY')]) {
-            sh("gcloud auth activate-service-account --key-file=${GC_KEY} --zone us-central1-a	 --project tf-gcp-connection")
+            sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
                }
         }
 }
