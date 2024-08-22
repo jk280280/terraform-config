@@ -1,4 +1,5 @@
 provider "google" {
+  credentials = file("/home/jayakrishnaperam96/tf-gcp-connection-f5d7abd03058.json")
   project     = "tf-gcp-connection"
   region      = "us-central1"
 }
