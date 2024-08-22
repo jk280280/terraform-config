@@ -1,7 +1,7 @@
 pipeline {
     agent any
         environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('0a823d8d-9782-4722-991e-7ac8f64f73a6')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-key')
     }
        stages{
         stage('Terraform Apply') {
