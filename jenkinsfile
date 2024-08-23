@@ -21,8 +21,8 @@ pipeline {
             steps {
                 script {
                     sudo usermod -a -G docker $USER
-                    sh 'docker build -t gcr.io/tf-gcp-connect/my-app:latest .'
-                    sh 'docker push gcr.io/tf-gcp-connect/my-app:latest'
+                    sh 'docker build -t gcr.io/tf-gcp-connection/my-app:latest .'
+                    sh 'docker push gcr.io/tf-gcp-connection/my-app:latest'
                 }
             }
         }
