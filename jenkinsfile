@@ -20,8 +20,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t gcr.io/tf-gcp-connection/my-app:latest .'
-                    sh 'docker push gcr.io/tf-gcp-connection/my-app:latest'
+                    sh 'docker build -t eu.gcr.io/tf-gcp-connection/my-app:latest .'
+                    sh 'docker push eu.gcr.io/tf-gcp-connection/my-app:latest'
                 }
             }
         }
