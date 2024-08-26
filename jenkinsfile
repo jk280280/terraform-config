@@ -18,6 +18,16 @@ pipeline {
         }
         }
 
+stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker login -u _json_key -p "gcp-key" https://gcr.io'
+                    sh 'docker build -t eu.gcr.io/tf-gcp-connection/my-app:latest .'
+                    sh 'docker push eu.gcr.io/tf-gcp-connection/my-app:latest'
+                }
+            }
+        }
+
 stage('Build docker image') {
     when { expression { true } }
       steps{
@@ -26,7 +36,7 @@ stage('Build docker image') {
             echo 'Build docker image Start'
             sh 'pwd'
             sh 'docker build -t europe-central2.gcr.io/tf-gcp-connect/my-app:latest .'
-            withCredentials([file(credentialsId: 'gcp-eky', variable: 'GC_KEY')]){
+            withCredentials([file(credentialsId: 'gcp-key', variable: 'GC_KEY')]){
               sh 'cat "${GC_key}" | docker login -u _json_key_base64 --password-stdin https://europe-central2.gcr.io/tf-gcp-connect/my-app' 
               sh 'docker push europe-central2.gcr.io/tf-gcp-connect/my-app:latest'   
               sh 'docker logout europe-central2.gcr.io/tf-gcp-connect/my-app'
@@ -37,14 +47,7 @@ stage('Build docker image') {
         }
       }
 }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh 'docker build -t eu.gcr.io/tf-gcp-connection/my-app:latest .'
-                    sh 'docker push eu.gcr.io/tf-gcp-connection/my-app:latest'
-                }
-            }
-        }
+        
         stage('Ansible Provision') {
             steps {
                 script {
