@@ -25,7 +25,7 @@ stage('Build docker image') {
           dir('Backend Net/MyDotnet') {
             echo 'Build docker image Start'
             sh 'pwd'
-            sh 'docker build -t eu.gcr.io/tf-gcp-connect/my-app:latest .'
+            sh 'docker build -t europe-central2.gcr.io/tf-gcp-connect/my-app:latest .'
             withCredentials([file(credentialsId: 'gcp-eky', variable: 'GC_KEY')]){
               sh 'cat "${GC_key}" | docker login -u _json_key_base64 --password-stdin https://europe-central2-docker.pkg.dev'
               sh 'docker push eu.gcr.io/tf-gcp-connect/my-app:latest'   
