@@ -21,7 +21,7 @@ pipeline {
 stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker login -u _json_key -p "gcp-key" https://gcr.io'
+                    sh 'docker login -u  --key-file=${GC_KEY} https://gcr.io'
                     sh 'docker build -t eu.gcr.io/tf-gcp-connection/my-app:latest .'
                     sh 'docker push eu.gcr.io/tf-gcp-connection/my-app:latest'
                 }
