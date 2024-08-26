@@ -27,9 +27,9 @@ stage('Build docker image') {
             sh 'pwd'
             sh 'docker build -t europe-central2.gcr.io/tf-gcp-connect/my-app:latest .'
             withCredentials([file(credentialsId: 'gcp-eky', variable: 'GC_KEY')]){
-              sh 'cat "${GC_key}" | docker login -u _json_key_base64 --password-stdin https://europe-central2-docker.pkg.dev'
-              sh 'docker push eu.gcr.io/tf-gcp-connect/my-app:latest'   
-              sh 'docker logout https://europe-central2-docker.pkg.dev'
+              sh 'cat "${GC_key}" | docker login -u _json_key_base64 --password-stdin https://europe-central2.gcr.io/tf-gcp-connect/my-app' 
+              sh 'docker push europe-central2.gcr.io/tf-gcp-connect/my-app:latest'   
+              sh 'docker logout europe-central2.gcr.io/tf-gcp-connect/my-app'
             }
             sh 'docker rmi eu.gcr.io/tf-gcp-connect/my-app:latest'
             echo 'Build docker image Finish'
