@@ -22,7 +22,6 @@ stage('Build Docker Image') {
             steps {
                 script {
                     sh 'gcloud auth configure-docker europe-central2-docker.pkg.dev'
-                    sh 'sudo apt-get install google-cloud-cli-docker-credential-gcr'
                     sh 'echo "https://europe-central2-docker.pkg.dev" | docker-credential-gcloud get'
                     sh 'docker build -t eu.gcr.io/tf-gcp-connection/my-app:latest .'
                     sh 'docker push eu.gcr.io/tf-gcp-connection/my-app:latest'
